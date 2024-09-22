@@ -1,7 +1,7 @@
 ## Introduction
 
 <p align="center">
-        <img src="logox.png" width="250px" height="250px">
+        <img src="logo.png" width="250px" height="250px">
 </p>
 
 <h3>10formulas : Your Ultimate Periodic Table Companion</h3>
