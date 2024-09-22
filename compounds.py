@@ -47,20 +47,11 @@ def ask_for_formulas(dictionary):
     print("========================================")
     print(f"Your Final score is : {score} pints")
     print("========================================")
+    sleep(1)
 
 def run_compounds():
     clear()
-    while True:
-        ask_for_formulas(compounds_dict)
-        sleep(1)
-        print("Do You Want to REPEAT:")
-        ask_to_continue = str(input("type y/N : "))
-
-        if ask_to_continue.upper()=="N":
-            break
-        else:
-            clear()
-            continue
+    ask_for_formulas(compounds_dict)
 
 if __name__ == "__main__":
     run_compounds()

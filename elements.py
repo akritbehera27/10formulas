@@ -1,5 +1,6 @@
 import random
 import os, platform
+from time import sleep
 
 # Dictionary containing information about the first 18 elements of the periodic table
 elements = {
@@ -120,12 +121,18 @@ def run_elements():
     if no_of_sets>0:
         for nset in range(0,no_of_sets):
             clear()
-            print(f"Hear Is your {nset+1} Set:")
+            print(f"Hear Is your {nset+1} Set:")            
             ask_question()   
             ask_electronic_configuration()
             ask_valency()
+        
         clear()
-        print(f"\nHear is Your Final Score :: {poi}")
+        sleep(1)
+        print("========================================")
+        print(f"Your Final score is : {poi} pints")
+        print("========================================")
+        sleep(1)
+
 
     else:
         while True:
@@ -134,7 +141,10 @@ def run_elements():
             ask_valency()
 
             clear()
-            print(f"\nHear is Your Current Score :: {poi}")
+            print("-----------------------------------------")
+            print(f"Your Current score is : {poi} pints")
+            print("-----------------------------------------")
+            sleep(1)
 
 if __name__ == "__main__":
     run_elements()

@@ -66,6 +66,12 @@ def ask_for_values(dictionary):
     print("========================================")
     print(f"Your Final score is : {score} pints")
     print("========================================")
+    sleep(1)
+
+def run_ions():
+    clear()
+    ask_for_values(ions_dict)
+
 # Example usage:
 if __name__ == "__main__":
     print()
