@@ -1,8 +1,18 @@
 import random
 import os, platform
-from time import sleep
 
 # Dictionary containing information about the first 18 elements of the periodic table
+def greeting_e():
+    Body = r'''
+ _____ _                           _       
+| ____| | ___ _ __ ___   ___ _ __ | |_ ___ 
+|  _| | |/ _ \ '_ ` _ \ / _ \ '_ \| __/ __|
+| |___| |  __/ | | | | |  __/ | | | |_\__ /
+|_____|_|\___|_| |_| |_|\___|_| |_|\__|___/
+
+'''
+    print(Body)
+
 elements = {
     1: {"name": "Hydrogen", "symbol": "H", "atomic_number": 1, "electronic_config": "1", "valency": 1},
     2: {"name": "Helium", "symbol": "He", "atomic_number": 2, "electronic_config": "2", "valency": 0},
@@ -36,9 +46,9 @@ elements = {
     30: {"name": "Zinc", "symbol": "Zn", "atomic_number": 30,}
 }
 
-poi=6
+points=6
 def ask_question():
-    global poi
+    global points
     # Randomly select an element from the first 18 elements
     element_number = random.randint(1, 30)
     element = elements[element_number]
@@ -47,11 +57,13 @@ def ask_question():
     print(f"\nWhat is the symbol of the element with atomic number {element['atomic_number']}?")
     symbol_answer = input("Symbol: ")
 
+    if symbol_answer.replace(" ", "").lower()=="q":
+            os._exit(0)
     if symbol_answer.lower() != element['symbol'].lower():
         print(f"Wrong! The correct symbol is '{element['symbol']}'")
-        poi-=2
+        points-=2
     else:
-        poi+=5
+        points+=5
     
     #other set
     element_number = random.randint(1, 30)
@@ -60,14 +72,19 @@ def ask_question():
     print(f"\nWhat is the atomic number of the element with name '{element['name']}'?")
     atomic_number_answer = input("Atomic Number: ")
 
-    if atomic_number_answer != str(element['atomic_number']):
+    if atomic_number_answer.replace(" ", "").lower()=="q":
+            os._exit(0)
+    if atomic_number_answer.replace(" ", "") != str(element['atomic_number']):
         print(f"Wrong! The correct atomic number is {element['atomic_number']}")
-        poi-=2
+        points-=2
     else:
-        poi+=5
+        points+=5
+
+def extract_numbers(input_string):
+    return ''.join(char for char in input_string if char.isdigit())
 
 def ask_electronic_configuration():
-    global poi
+    global points
     # Randomly select an element from the first 18 elements
     element_number = random.randint(1, 18)
     element = elements[element_number]
@@ -77,31 +94,38 @@ def ask_electronic_configuration():
     config_answer = input("Electronic Configuration: ")
     
     # Check answer
-    if config_answer != element['electronic_config']:
+    if config_answer.replace(" ", "").lower()=="q":
+        os._exit(0)
+    if extract_numbers(config_answer) != extract_numbers(element['electronic_config']):
         print(f"Wrong! The correct electronic configuration is '{element['electronic_config']}'")
-        poi-=2
+        points-=2
     else:
-        poi+=5
+        points+=5
 
 def ask_valency():
-    global poi
+    global points
     # Randomly select an element from the first 30 elements
     element_number = random.randint(1, 18)
     element = elements[element_number]
     
     # Ask for the valency of the element
     print(f"\nWhat is the valency of '{element['symbol']}'?")
-    try:
-        valency_answer = int(input("Valency: "))
-    except:
-        valency_answer = 0
-    
-    # Check answer
-    if valency_answer != element['valency']:      
-        print(f"Wrong! The correct valency is '{element['valency']}'")
-        poi-=2
+    vinput=input("Valency: ")
+    if vinput.replace(" ", "").lower()=="q":
+        os._exit(0)
     else:
-        poi+=5
+        try:
+            valency_answer = int(vinput)
+        except:
+            valency_answer = 0
+        else:
+            # Check answer
+            valency_answer = int(vinput)
+            if valency_answer != element['valency']:      
+                print(f"Wrong! The correct valency is '{element['valency']}'")
+                points-=2
+            else:
+                points+=5
 
 def clear():
    if platform.system() == 'Windows':
@@ -112,27 +136,30 @@ def clear():
 
 def run_elements():
     clear()
-    print("Deafult will (no input) will run it on infinite loop")
-    try:
-        no_of_sets=int(input("Please Specify the no of Sets : "))
-    except:
-        no_of_sets=0
+    greeting_e()
+    print("Deafult will (no input or any other ) will run it on infinite loop")
+    no_of_sets_main=input("Please Specify the no of Sets : ")
+
+    if no_of_sets_main.lower()=="q" or "q" in no_of_sets_main.lower():
+            os._exit(0)
+    else:
+        try:
+            no_of_sets=int(no_of_sets_main)
+        except:
+            no_of_sets=0
         
     if no_of_sets>0:
+        no_of_sets=int(no_of_sets_main)
         for nset in range(0,no_of_sets):
             clear()
-            print(f"Hear Is your {nset+1} Set:")            
+            print(f"Hear Is your {nset+1} Set:")
             ask_question()   
             ask_electronic_configuration()
             ask_valency()
-        
         clear()
-        sleep(1)
         print("========================================")
-        print(f"Your Final score is : {poi} pints")
+        print(f"Your Final score is : {points} pt")
         print("========================================")
-        sleep(1)
-
 
     else:
         while True:
@@ -142,9 +169,8 @@ def run_elements():
 
             clear()
             print("-----------------------------------------")
-            print(f"Your Current score is : {poi} pints")
+            print(f"Your Current score is : {points} pt")
             print("-----------------------------------------")
-            sleep(1)
 
 if __name__ == "__main__":
     run_elements()

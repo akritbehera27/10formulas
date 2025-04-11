@@ -1,6 +1,7 @@
 import random
 import os , platform
 from time import sleep
+import welcom
 
 compounds_dict = {
 "Sulphuric Acid" : "H2SO4",
@@ -12,6 +13,18 @@ compounds_dict = {
 "Slaked Lime":"Ca(OH)2",
 "Lime Stone Is made of":"CaCO3"
 }
+
+def greeting_c():
+    Body = r'''
+  ____                                                  _     
+ / ___|___  _   _ _ __ ___  _ __   ___  _   _ _ __   __| |___ 
+| |   / _ \| | | | '_ ` _ \| '_ \ / _ \| | | | '_ \ / _` / __|
+| |__| (_) | |_| | | | | | | |_) | (_) | |_| | | | | (_| \__/
+ \____\___/ \__,_|_| |_| |_| .__/ \___/ \__,_|_| |_|\__,_|___/
+                           |_|                                
+
+'''
+    print(Body)
 
 def clear():
    if platform.system() == 'Windows':
@@ -31,6 +44,8 @@ def ask_for_formulas(dictionary):
 
         if value.replace(" ", "").upper()==dictionary[key].replace(" ", "").upper():
             score += 1
+        elif value.lower()=="q":
+            os._exit(0)
         else:
             print(f"Your Answer is wrong, Correct answer is : {dictionary[key]}")
 
@@ -38,20 +53,32 @@ def ask_for_formulas(dictionary):
             no_of_question_asked = 0
             clear()
             print("-----------------------------------------")
-            print(f"Your Current score is : {score} pints")
+            print(f"Your Current score is : {score} pt")
             print("-----------------------------------------")
             sleep(1)
 
     clear()
     sleep(1)
     print("========================================")
-    print(f"Your Final score is : {score} pints")
+    print(f"Your Final score is : {score} pt")
     print("========================================")
-    sleep(1)
 
 def run_compounds():
     clear()
-    ask_for_formulas(compounds_dict)
+    greeting_c()
+    while True:
+        ask_for_formulas(compounds_dict)
+        sleep(1)
+        print("Do You Want to REPEAT")
+        print("type y/N ( default )")
+        ask_to_continue = str(input(" : "))
+
+        if ask_to_continue.upper()=="Y":
+            clear()
+            continue
+        else:
+            break
 
 if __name__ == "__main__":
+    welcom.final()
     run_compounds()

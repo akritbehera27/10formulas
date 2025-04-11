@@ -2,6 +2,17 @@ import random
 import os , platform
 from time import sleep
 
+def greeting_i():
+    Body = r'''
+ ___                
+|_ _|___  _ __  ___ 
+ | |/ _ \| '_ \/ __|
+ | | (_) | | | \__ /
+|___\___/|_| |_|___/
+
+'''
+    print(Body)
+
 ions_dict = {
 "Sodium" : "Na+",
 "Potassium" : "K+",
@@ -48,6 +59,9 @@ def ask_for_values(dictionary):
         value = str(input(f"Enter a formula for '{key}': "))
         no_of_question_asked += 1
 
+        # Checking the answers
+        if value.replace(" ", "").lower()=="q":
+            os._exit(0)
         if value.replace(" ", "").upper()==dictionary[key].replace(" ", "").upper():
             score += 1
         else:
@@ -57,19 +71,19 @@ def ask_for_values(dictionary):
             no_of_question_asked = 0
             clear()
             print("-----------------------------------------")
-            print(f"Your Current score is : {score} pints")
+            print(f"Your Current score is : {score} pt")
             print("-----------------------------------------")
             sleep(1)
 
     clear()
     sleep(1)
     print("========================================")
-    print(f"Your Final score is : {score} pints")
+    print(f"Your Final score is : {score} pt")
     print("========================================")
-    sleep(1)
 
 def run_ions():
     clear()
+    greeting_i()
     ask_for_values(ions_dict)
 
 # Example usage:
